@@ -14,3 +14,7 @@ npm-debug.log
 yarn-error.log
 /.idea
 /.vscode
+.docker/jenkins/jenkins_home/*
+!.docker/jenkins/jenkins_home/.keep
+/.docker/mariadb/data/*
+!.docker/mariadb/data/.keep
