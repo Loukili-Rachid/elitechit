@@ -28,4 +28,9 @@ class Product extends Model
             ->withPivot('quantity')
             ->withTimestamps();
     }
+
+    public function status()
+    {
+        return $this->belongsTo(Status::class)->where('model', class_basename(self::class));
+    }
 }

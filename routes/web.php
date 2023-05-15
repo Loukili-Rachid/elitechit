@@ -9,6 +9,8 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UpgradeAppController;
 use App\Http\Controllers\MaintenanceController;
+use App\Http\Controllers\ProductsController;
+
 // use App\Http\Middleware\CreateCookie;
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +42,13 @@ Route::post('/', [HomeController::class, 'quote'])->name('quote');
 Route::get('/about-us', function(){
     return view('about-us');
 });
+
+
+Route::get('/products', [ProductsController::class, 'index']);
+Route::get('cart', [ProductsController::class, 'cart'])->name('cart');
+Route::get('products/{id}', [ProductsController::class, 'addToCart'])->name('addToCart');
+// Route::patch('update-cart', [ProductsController::class, 'update'])->name('update_cart');
+// Route::delete('remove-from-cart', [ProductsController::class, 'remove'])->name('remove_from_cart');
 
 Route::get('/services',[ServiceController::class, 'index']);
 Route::get('/service-details/{slug}',[ServiceController::class, 'service'])->name('service');

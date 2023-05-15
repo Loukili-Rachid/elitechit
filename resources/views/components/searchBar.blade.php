@@ -61,7 +61,7 @@
 {{-- <div id="searchBar" class="container mb-4" style="position: relative" > --}}
     <form class="d-flex" role="search" method="post" action="{{route('search')}}" id="search-form" onsubmit="event.preventDefault();">
         {{ csrf_field() }}
-        <input class="form-control mr-2 " type="search" placeholder="Search..." aria-label="Search" name="search" id="search" minlength="2" maxlength="20" required>
+        <input class="form-control " type="search" placeholder="Search..." aria-label="Search" name="search" id="search" minlength="2" maxlength="20" required>
         
         {{-- <i class="fa-solid fa-magnifying-glass pt-1" style="font-size: 24px; color:#7fc540"></i> --}}
     </form>

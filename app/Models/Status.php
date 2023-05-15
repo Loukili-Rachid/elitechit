@@ -9,4 +9,10 @@ class Status extends Model
 {
     use HasFactory;
     protected $fillable = ['name', 'model'];
+
+
+    public function scopeProduct($query)
+    {
+        return $query->where('model', "Product");
+    }
 }
