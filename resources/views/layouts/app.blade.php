@@ -57,6 +57,7 @@
     </style>
      {!! SEO::generate() !!}
      {!!setting('site.js_script')!!}
+     @livewireStyles
 </head>
 
 <body>
@@ -70,5 +71,6 @@
         </main>
         @include('layouts.footer')
     </div>
+    @livewireScripts
 </body>
 </html>

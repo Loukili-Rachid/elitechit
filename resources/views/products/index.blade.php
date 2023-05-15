@@ -56,7 +56,7 @@
                         </div>
                         <h3> <a href="{{route('addToCart',$product)}}">{{$product->title}}</a> </h3>
                         <p> {!! \Illuminate\Support\Str::limit($product->description ?? '',100,' ...') !!}</p>
-                        <h3 class="d-flex justify-content-center">$ {{$product->price}} </h3>
+                        <h3 class="d-flex justify-content-center"> ${{ number_format( $product->price, 2) }} </h3>
                         <div class="d-flex justify-content-center align-items-center">
                           <a href="{{route('addToCart',$product)}}" class="btn">Add to cart</a>
                         </div>

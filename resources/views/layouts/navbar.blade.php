@@ -14,7 +14,7 @@
                                 @include('components.searchBar')
                             </div>
                             <li>
-                                <a href="#" style="display: flex; align-items: center">
+                                <a href="{{route('cart')}}" style="display: flex; align-items: center">
                                     <i class="fa fa-shopping-cart mr-1" aria-hidden="true"></i> Cart 
                                     <span class="badge badge-pill badge-danger ml-1">{{ count((array) session('cart')) }}</span>
                                 </a>
@@ -57,7 +57,7 @@
                 @include('components.searchBar')
             </div>
             <div class="ml-1">
-                <a href="#" style="display: flex; align-items: center">
+                <a href="{{route('cart')}}" style="display: flex; align-items: center">
                     <i class="fa fa-shopping-cart mr-1" aria-hidden="true"></i> Cart 
                     <span class="badge badge-pill badge-danger ml-1">{{ count((array) session('cart')) }}</span>
                 </a>

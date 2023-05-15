@@ -9,7 +9,6 @@ class ProductsController extends Controller
 {
     public function index()
     {  
-        session()->forget('cart');
         $products = Product::whereHas('status', function ($query) {
             $query->where('name', 'active');
         })->paginate(10);
@@ -19,7 +18,7 @@ class ProductsController extends Controller
  
     public function cart()
     {
-        return view('cart');
+        return view('products.cart');
     }
     public function addToCart($id)
     {
