@@ -74,7 +74,7 @@ Route::post('/faq',[HomeController::class, 'question'])->name('question');
 
 // });
 Route::prefix('customer')->group(function () {
-    Route::middleware('guest')->group(function () {
+    Route::middleware('client.guest')->group(function () {
         Route::get('/login', [LoginController::class, 'showLoginForm'])->name('showLoginForm');
         Route::post('/login', [LoginController::class, 'login'])->name('login');
         Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('showRegistrationForm');

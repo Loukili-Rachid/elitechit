@@ -42,7 +42,7 @@
                         <nav id="mobile-menu">
                             <ul>
                                 {{ menu('navbar','layouts.nav') }}
-                                @auth
+                                @auth('client')
                                     <li >
                                         <a style="text-decoration: underline;" class="breadcrumb-item active text-primary" href="{{ route('logout') }}">Logout</a>
                                     </li>

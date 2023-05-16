@@ -62,7 +62,7 @@
         <i class="fa-sharp fa-solid fa-arrow-left"></i> continue shopping
         </a>
         @if ($checkout)
-            @auth
+            @auth('client')
                 <a href="#Auth"  class="btn"
                 >
                     <i class="fa-solid fa-bag-shopping"></i> checkout
