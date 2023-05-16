@@ -31,7 +31,7 @@ class LoginController extends Controller
         // dd(Auth::guard('client')->attempt($credentials));
         if (Auth::guard('client')->attempt($credentials)) {
             // Authentication passed...
-            return redirect()->route('cart');
+            return redirect()->route('cart')->with('success', 'You have been successfully logged in!');
 
         }
 

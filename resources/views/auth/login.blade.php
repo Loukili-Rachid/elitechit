@@ -66,7 +66,11 @@
                                 <div class="help-block with-errors"></div>
                                 </div>
                             </div>
-                            <div class="col d-flex justify-content-end">
+                            <div class="col d-flex justify-content-between">
+                              <div class="d-flex">
+                                <span class="pr-1">Create an account ?</span> 
+                                <a style="text-decoration: underline;" class="breadcrumb-item active text-primary" href="{{ route('showRegistrationForm') }}">register now</a>
+                              </div>
                                 <button type="submit" class="btn"> login </button>
                             </div>
                     </form>

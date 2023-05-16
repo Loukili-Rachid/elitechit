@@ -9,6 +9,7 @@ class Cart extends Component
     public $cart;
     public $cart_counter;
     public $total;
+    public $checkout;
 
     public function mount()
     {
@@ -49,7 +50,6 @@ class Cart extends Component
     private function calculateItems()
     {
         $cart_counter= count((array) session('cart'));
-    
         return $cart_counter;
     }
     
@@ -57,10 +57,11 @@ class Cart extends Component
     {
         $this->total = $this->calculateTotal();
         $this->cart_counter = $this->calculateItems();
-
+        $this->checkout= count((array) session('cart'))==0 ? false:true;
         return view('livewire.cart', [
             'total' => $this->total,
             'cart_counter' => $this->cart_counter,
+            'checkout'=> $this->checkout
         ]);
         
     }

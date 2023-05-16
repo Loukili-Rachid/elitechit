@@ -54,11 +54,14 @@
                         <div class="date"> <i class="fa fa-calendar"></i>
                             <span>{{Carbon\Carbon::parse($product->created_at)->diffForHumans()}}</span>
                         </div>
-                        <h3> <a href="{{route('addToCart',$product)}}">{{$product->title}}</a> </h3>
+                        <h3> {{$product->title}} </h3>
                         <p> {!! \Illuminate\Support\Str::limit($product->description ?? '',100,' ...') !!}</p>
                         <h3 class="d-flex justify-content-center"> ${{ number_format( $product->price, 2) }} </h3>
                         <div class="d-flex justify-content-center align-items-center">
-                          <a href="{{route('addToCart',$product)}}" class="btn">Add to cart</a>
+                          <form method="POST" action="{{ route('addToCart', ['id' => $product->id]) }}">
+                              @csrf
+                              <button type="submit" class="btn">Add to cart</button>
+                          </form>
                         </div>
                         
                     </div>

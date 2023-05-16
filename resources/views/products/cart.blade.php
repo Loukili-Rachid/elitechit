@@ -27,7 +27,11 @@
     </div>
   </section>
 <!-- Breadcrumb Sec End -->
-
+@if(Session::has('success'))
+<div class="alert alert-success container mt-4">
+  {{Session::get('success')}}
+</div>
+@endif
 <livewire:cart /> 
 
 

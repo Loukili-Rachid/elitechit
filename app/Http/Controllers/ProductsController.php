@@ -20,7 +20,7 @@ class ProductsController extends Controller
     {
         return view('products.cart');
     }
-    public function addToCart($id)
+    public function addToCart(Request $request, $id)
     {
         $product = Product::findOrFail($id);
  

@@ -80,8 +80,13 @@
                                 <div class="help-block with-errors"></div>
                                 </div>
                             </div>
-                            <div class="col d-flex justify-content-end">
-                                <button type="submit" class="btn"> register </button>
+                            <div class="col d-flex justify-content-between">
+                              <div class="d-flex">
+                                <span class="pr-1">Already have an account ?</span> 
+                                <a style="text-decoration: underline;" class="breadcrumb-item active text-primary" href="{{ route('showLoginForm') }}">Login</a>
+                              </div>
+                                
+                              <button type="submit" class="btn"> register </button>
                             </div>
                     </form>
                 </div>
