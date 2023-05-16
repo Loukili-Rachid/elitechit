@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 use TCG\Voyager\Facades\Voyager;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
@@ -71,6 +73,15 @@ Route::get('/faq',[HomeController::class, 'faq']);
 Route::post('/faq',[HomeController::class, 'question'])->name('question');
 
 // });
+Route::prefix('customer')->group(function () {
+    Route::middleware('guest')->group(function () {
+        Route::get('/login', [LoginController::class, 'showLoginForm'])->name('showLoginForm');
+        Route::post('/login', [LoginController::class, 'login'])->name('login');
+        Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('showRegistrationForm');
+        Route::post('/register', [RegisterController::class, 'register'])->name('register');
+    });
+    Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+});
 
 Route::group(['prefix' => config('base.admin_path')], function () {
     Voyager::routes();

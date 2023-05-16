@@ -40,8 +40,22 @@
                     <div class="header-right float-right d-none d-lg-block"> <a href="#quote-popup" class="bt-btn btn open-popup-link">Get a Quote</a> </div>
                     <div class="header__menu float-right">
                         <nav id="mobile-menu">
-                            <ul>{{ menu('navbar','layouts.nav') }}
+                            <ul>
+                                {{ menu('navbar','layouts.nav') }}
+                                @auth
+                                    <li >
+                                        <a style="text-decoration: underline;" class="breadcrumb-item active text-primary" href="{{ route('logout') }}">Logout</a>
+                                    </li>
+                                @else
+                                    <li >
+                                        <a style="text-decoration: underline;" class="breadcrumb-item active text-primary" href="{{ route('showLoginForm') }}">Login</a>
+                                    </li>
+                                    <li >
+                                        <a style="text-decoration: underline;" class="breadcrumb-item active text-primary" href="{{ route('showRegistrationForm') }}">Register</a>
+                                    </li>
+                                @endauth
                             </ul>
+    
                         </nav>
                     </div>
                 </div>

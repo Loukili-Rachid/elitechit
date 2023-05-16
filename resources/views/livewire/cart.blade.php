@@ -61,9 +61,16 @@
         >
         <i class="fa-sharp fa-solid fa-arrow-left"></i> continue shopping
         </a>
-        <a class="btn"
-        >
-            <i class="fa-solid fa-bag-shopping"></i> checkout
-        </a>
+        @auth
+            <a href="#Auth"  class="btn"
+            >
+                <i class="fa-solid fa-bag-shopping"></i> checkout
+            </a>
+        @else
+            <a href="{{route('showLoginForm')}}" class="btn"
+            >
+                <i class="fa-solid fa-bag-shopping"></i> checkout
+            </a>
+        @endauth
     </div>
 </div>
