@@ -51,9 +51,6 @@
                         @php
                         Carbon\Carbon::setLocale('en')
                         @endphp
-                        <div class="date"> <i class="fa fa-calendar"></i>
-                            <span>{{Carbon\Carbon::parse($product->created_at)->diffForHumans()}}</span>
-                        </div>
                         <h3> {{$product->title}} </h3>
                         <p> {!! \Illuminate\Support\Str::limit($product->description ?? '',100,' ...') !!}</p>
                         <h3 class="d-flex justify-content-center"> ${{ number_format( $product->price, 2) }} </h3>

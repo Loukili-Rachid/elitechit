@@ -44,14 +44,18 @@
                                 {{ menu('navbar','layouts.nav') }}
                                 @auth('client')
                                     <li >
-                                        <a style="text-decoration: underline;" class="breadcrumb-item active text-primary" href="{{ route('logout') }}">Logout</a>
+                                        <a style="text-decoration: underline;" class="breadcrumb-item active text-primary" href="{{ route('logout') }}"><i class="ml-1 fa-solid fa-right-to-bracket"></i></a>
                                     </li>
                                 @else
-                                    <li >
-                                        <a style="text-decoration: underline;" class="breadcrumb-item active text-primary" href="{{ route('showLoginForm') }}">Login</a>
-                                    </li>
-                                    <li >
-                                        <a style="text-decoration: underline;" class="breadcrumb-item active text-primary" href="{{ route('showRegistrationForm') }}">Register</a>
+                                    <li class="menu-item-has-children"><a href="#"><i class="fa-solid fa-user"></i></a>
+                                        <ul class="submenu">
+                                            <li >
+                                                <a style="text-decoration: underline;" class="breadcrumb-item active text-primary" href="{{ route('showLoginForm') }}">Login</a>
+                                            </li>
+                                            <li >
+                                                <a style="text-decoration: underline;" class="breadcrumb-item active text-primary" href="{{ route('showRegistrationForm') }}">Register</a>
+                                            </li>
+                                        </ul>
                                     </li>
                                 @endauth
                             </ul>

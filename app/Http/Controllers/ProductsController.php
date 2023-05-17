@@ -33,6 +33,7 @@ class ProductsController extends Controller
                 'product_id' => $product->id,
                 "title" => $product->title,
                 "price" => $product->price,
+                "cost" => $product->cost,
                 "quantity" => 1
             ];
         }
