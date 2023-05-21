@@ -9,8 +9,8 @@ class Cart extends Component
     public $cart;
     public $cart_counter;
     public $total;
-    public $checkout;
-
+    // public $checkout;
+    
     public function mount()
     {
         $this->cart = session()->get('cart', []);
@@ -20,12 +20,6 @@ class Cart extends Component
     public function incrementQuantity($productId)
     {
         $this->cart[$productId]['quantity']++;
-        session()->put('cart', $this->cart);
-    }
-
-    public function removeProduct($productId)
-    {
-        unset($this->cart[$productId]);
         session()->put('cart', $this->cart);
     }
 
@@ -57,11 +51,11 @@ class Cart extends Component
     {
         $this->total = $this->calculateTotal();
         $this->cart_counter = $this->calculateItems();
-        $this->checkout= count((array) session('cart'))==0 ? false:true;
+        // $this->checkout= count((array) session('cart'))==0 ? false:true;
         return view('livewire.cart', [
             'total' => $this->total,
             'cart_counter' => $this->cart_counter,
-            'checkout'=> $this->checkout
+            // 'checkout'=> $this->checkout
         ]);
         
     }

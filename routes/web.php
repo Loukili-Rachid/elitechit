@@ -49,8 +49,8 @@ Route::get('/about-us', function(){
 Route::get('/products', [ProductsController::class, 'index']);
 Route::get('cart', [ProductsController::class, 'cart'])->name('cart');
 Route::post('products/{id}', [ProductsController::class, 'addToCart'])->name('addToCart');
-// Route::patch('update-cart', [ProductsController::class, 'update'])->name('update_cart');
-// Route::delete('remove-from-cart', [ProductsController::class, 'remove'])->name('remove_from_cart');
+Route::post('cart', [ProductsController::class, 'purchase'])->name('purchase');
+Route::get('cart/{productId}', [ProductsController::class, 'removeProduct'])->name('remove_from_cart');
 
 Route::get('/services',[ServiceController::class, 'index']);
 Route::get('/service-details/{slug}',[ServiceController::class, 'service'])->name('service');

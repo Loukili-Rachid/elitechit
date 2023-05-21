@@ -72,5 +72,6 @@
         @include('layouts.footer')
     </div>
     @livewireScripts
+    @yield('scripts')
 </body>
 </html>

@@ -29,4 +29,8 @@ class Order extends Model
     {
         return $this->hasMany(Payment::class);
     }
+    public function status()
+    {
+        return $this->belongsTo(Status::class)->where('model', class_basename(self::class));
+    }
 }
