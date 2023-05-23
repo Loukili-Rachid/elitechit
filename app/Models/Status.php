@@ -13,6 +13,16 @@ class Status extends Model
 
     public function scopeProduct($query)
     {
-        return $query->where('model', "Product");
+        return $query->where('model', class_basename(Product::class));
+    }
+
+    public function scopeClient($query)
+    {
+        return $query->where('model', class_basename(Client::class));
+    }
+
+    public function scopeOrder($query)
+    {
+        return $query->where('model', class_basename(Order::class));
     }
 }

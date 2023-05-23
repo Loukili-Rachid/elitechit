@@ -42,11 +42,9 @@
             <div class="col-lg-4 col-md-6">
                 <!-- Single Blog Sec -->
                 <div class="single-blog-post">
-                    {{-- <div class="post-image">
-                        <a href="{{route('product',$product)}}"> 
-                            @if($product->img)<img src="{{asset('storage/'.$product->img)}}" alt="" title=""> @endif
-                        </a>
-                    </div> --}}
+                    <div class="post-image">
+                        @if($product->image)<img src="{{asset('storage/'.$product->image)}}" alt="" title=""> @endif
+                    </div>
                     <div class="post-content">
                         @php
                         Carbon\Carbon::setLocale('en')
