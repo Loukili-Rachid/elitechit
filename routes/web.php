@@ -46,7 +46,7 @@ Route::get('/about-us', function(){
 });
 
 
-Route::get('/products', [ProductsController::class, 'index']);
+Route::get('/products', [ProductsController::class, 'index'])->name('products');
 Route::get('cart', [ProductsController::class, 'cart'])->name('cart');
 Route::post('products/{id}', [ProductsController::class, 'addToCart'])->name('addToCart');
 Route::post('cart', [ProductsController::class, 'purchase'])->name('purchase');

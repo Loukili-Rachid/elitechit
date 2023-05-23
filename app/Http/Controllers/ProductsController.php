@@ -19,6 +19,7 @@ class ProductsController extends Controller
  
     public function cart()
     {
+        
         $checkout= count((array) session('cart'))==0 ? false:true;
 
         if (Auth::guard('client')->check()) {
@@ -67,7 +68,12 @@ class ProductsController extends Controller
         try {
             $user->createOrGetStripeCustomer();
             $user->updateDefaultPaymentMethod($paymentMethod);
-            $user->charge($total * 100, $paymentMethod);        
+            $user->charge($total * 100, $paymentMethod, [
+                'metadata' => [
+                    'cart' => json_encode($cart),
+                    'client_id' => $user->id,
+                ],
+            ]);        
         } catch (\Exception $exception) {
             return back()->with('error', $exception->getMessage());
         }

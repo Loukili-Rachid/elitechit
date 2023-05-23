@@ -42,6 +42,7 @@
   <div class="row pb-3 px-3 font-weight-bolder">
     <div class="col-lg-6">
         <a class="mr-2 btn"
+          href="{{route('products')}}"
         >
         <i class="fa-sharp fa-solid fa-arrow-left"></i> continue shopping
         </a>
