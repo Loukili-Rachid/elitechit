@@ -74,10 +74,11 @@ class ProductsController extends Controller
                     'client_id' => $user->id,
                 ],
             ]);        
+            session()->forget('cart');
         } catch (\Exception $exception) {
-            return back()->with('error', $exception->getMessage());
+            return back()->with('error', "there is an error! please try again");
         }
-        session()->forget('cart');
+        
         return back()->with('success', 'Thank you for your order! the order has been successfully placed');
     }
 
