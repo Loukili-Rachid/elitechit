@@ -13,8 +13,10 @@ class Client extends Model implements Authenticatable
     use HasFactory, AuthenticatableTrait,Billable;
 
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
+        'phone',
         'password',
         'status_id',
         'is_email_verified'

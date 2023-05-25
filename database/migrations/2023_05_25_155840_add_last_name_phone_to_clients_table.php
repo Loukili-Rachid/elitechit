@@ -13,13 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('clients', function (Blueprint $table) {
-            $table->id();
-            $table->string('first_name');
-            $table->string('email');
-            $table->string('password');
-            $table->foreignId('status_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
-            $table->timestamps();
+        Schema::table('clients', function (Blueprint $table) {
+            $table->string('last_name')->after('first_name');
+            $table->string('phone')->after('email')->nullable();
         });
     }
 
@@ -30,6 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('clients');
+        Schema::table('clients', function (Blueprint $table) {
+            $table->dropColumn('last_name');
+            $table->dropColumn('phone');
+        });
     }
 };

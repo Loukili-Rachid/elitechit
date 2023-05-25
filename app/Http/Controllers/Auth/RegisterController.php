@@ -24,8 +24,10 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.Client::class],
+            'phone' => ['regex:/^\d{10}$/'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'password_confirmation' => 'required|min:8',
         ]);
@@ -35,8 +37,10 @@ class RegisterController extends Controller
         ->first();
 
         $client = Client::create([
-            'name' => $request->name,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
             'email' => $request->email,
+            'phone' => $request->phone,
             'password' => Hash::make($request->password),
             'status_id' => $clientStatus->id,
         ]);
@@ -50,7 +54,7 @@ class RegisterController extends Controller
         ]);
         try {
             Mail::send('email.emailVerificationEmail', ['token' => $token], function ($message) use ($request) {
-                $message->from($request->email, $request->name);
+                $message->from($request->email, $request->first_name);
                 $message->sender('contact@elitechit.com', env('MAIL_FROM_NAME'));
                 $message->to($request->email);
                 $message->replyTo('contact@elitechit.com', env('MAIL_FROM_NAME'));

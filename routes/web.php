@@ -100,7 +100,7 @@ Route::post('/email/verification-notification', function (Request $request) {
         $token = $clientVerify->token;
         try {
             Mail::send('email.emailVerificationEmail', ['token' => $token], function ($message) use ($client) {
-                $message->from($client->email, $client->name);
+                $message->from($client->email, $client->last_name);
                 $message->sender('contact@elitechit.com', env('MAIL_FROM_NAME'));
                 $message->to($client->email);
                 $message->replyTo('contact@elitechit.com', env('MAIL_FROM_NAME'));
