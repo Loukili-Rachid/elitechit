@@ -12,6 +12,10 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UpgradeAppController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\ProductsController;
+use App\Models\ClientVerify;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 // use App\Http\Middleware\CreateCookie;
 /*
@@ -36,7 +40,7 @@ Route::get('maintenance', function () {
 });
 Route::get('/createCookie', [HomeController::class, 'createCookie'])->name('createCookie');
 // Route::middleware([CreateCookie::class])->group(function () {
-Route::get('/', [HomeController::class, 'index']);
+Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/up-d44s87eswsplc61sx1z7r32fhlj59i6m6e7s4w85s', [UpgradeAppController::class, 'download']);
 Route::post('search', [SearchController::class, 'search'])->name('search');
 Route::post('/', [HomeController::class, 'quote'])->name('quote');
@@ -49,7 +53,7 @@ Route::get('/about-us', function(){
 Route::get('/products', [ProductsController::class, 'index'])->name('products');
 Route::get('cart', [ProductsController::class, 'cart'])->name('cart');
 Route::post('products/{id}', [ProductsController::class, 'addToCart'])->name('addToCart');
-Route::post('cart', [ProductsController::class, 'purchase'])->name('purchase');
+Route::post('cart', [ProductsController::class, 'purchase'])->name('purchase')->middleware(['client.auth','is_verify_email']);
 Route::get('cart/{productId}', [ProductsController::class, 'removeProduct'])->name('remove_from_cart');
 
 Route::get('/services',[ServiceController::class, 'index']);
@@ -82,6 +86,36 @@ Route::prefix('customer')->group(function () {
     });
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 });
+
+/* New Added Route */
+Route::get('/email/verify/{token}', [RegisterController::class, 'verifyClient'])->name('client.verify'); 
+
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('client.auth')->name('verification.notice');
+
+Route::post('/email/verification-notification', function (Request $request) {
+        $client=Auth::guard('client')->user();
+        $clientVerify = ClientVerify::where('client_id', $client->id)->first();
+        $token = $clientVerify->token;
+        try {
+            Mail::send('email.emailVerificationEmail', ['token' => $token], function ($message) use ($client) {
+                $message->from($client->email, $client->name);
+                $message->sender('contact@elitechit.com', env('MAIL_FROM_NAME'));
+                $message->to($client->email);
+                $message->replyTo('contact@elitechit.com', env('MAIL_FROM_NAME'));
+                $message->subject('Email Verification Mail');
+                $message->priority(1);
+                //$message->attach('pathToFile');
+            });
+        } catch (\Swift_TransportException $e) {
+            if ($e->getMessage()) {
+                return back()->with('error', 'Something went wrong. Please try again later.');
+            }
+        }
+ 
+    return back()->with('success', 'Verification link sent!');
+})->middleware(['client.auth', 'throttle:6,1'])->name('verification.send');
 
 Route::group(['prefix' => config('base.admin_path')], function () {
     Voyager::routes();

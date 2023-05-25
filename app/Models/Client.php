@@ -17,6 +17,7 @@ class Client extends Model implements Authenticatable
         'email',
         'password',
         'status_id',
+        'is_email_verified'
     ];
 
 
@@ -24,6 +25,10 @@ class Client extends Model implements Authenticatable
         'password',
     ];
 
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+    
     public function payments()
     {
         return $this->hasMany(Payment::class);

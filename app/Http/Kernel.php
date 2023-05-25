@@ -70,5 +70,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'CreateCookie' => \App\Http\Middleware\CreateCookie::class,
         'client.guest' => \App\Http\Middleware\RedirectClientIfAuthenticated::class,
+        'client.auth' => \App\Http\Middleware\AuthenticateClient::class,
+        'is_verify_email' => \App\Http\Middleware\IsVerifyEmail::class,
     ];
 }
