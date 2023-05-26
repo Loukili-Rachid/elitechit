@@ -34,9 +34,9 @@ class ProductsController extends Controller
     public function addToCart(Request $request, $id)
     {
         $product = Product::findOrFail($id);
- 
+        $discount = !empty($product->discount) ? $product->discount : 0 ;
         $cart = session()->get('cart', []);
- 
+        
         if(isset($cart[$id])) {
             $cart[$id]['quantity']++;
         }  else {
@@ -45,11 +45,13 @@ class ProductsController extends Controller
                 "title" => $product->title,
                 "price" => $product->price,
                 "cost" => $product->cost,
+                "discount" => $discount ,
                 "quantity" => 1
             ];
         }
  
         session()->put('cart', $cart);
+       
         return redirect()->back()->with('success', 'Product add to cart successfully!');
     }
 
@@ -59,7 +61,10 @@ class ProductsController extends Controller
         $total = 0;
     
         foreach ($cart as $item) {
-            $total += $item['quantity'] * $item['price'];
+            $itemTotal = $item['quantity'] * $item['price'];
+            $discountAmount = ($itemTotal * $item['discount']) / 100;
+            $itemTotal -= $discountAmount;
+            $total += $itemTotal;
         }
 
         $user = Auth::guard('client')->user();

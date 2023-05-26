@@ -36,7 +36,10 @@ class Cart extends Component
         $total = 0;
     
         foreach ($this->cart as $item) {
-            $total += $item['quantity'] * $item['price'];
+            $itemTotal = $item['quantity'] * $item['price'];
+            $discountAmount = ($itemTotal * $item['discount']) / 100;
+            $itemTotal = $itemTotal-$discountAmount;
+            $total += $itemTotal;
         }
     
         return $total;

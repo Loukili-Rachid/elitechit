@@ -9,7 +9,9 @@ use App\Models\Status;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Laravel\Cashier\Events\WebhookReceived;
-use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+use Carbon\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class StripeEventListener
 {
@@ -39,7 +41,10 @@ class StripeEventListener
             $cost = 0;
 
             foreach ($cart as $item) {
-                $total += $item['quantity'] * $item['price'];
+                $itemTotal = $item['quantity'] * $item['price'];
+                $discountAmount = ($itemTotal * $item['discount']) / 100;
+                $itemTotal -= $discountAmount;
+                $total += $itemTotal;
                 $cost += $item['quantity'] * $item['cost'];
             }
             
@@ -70,6 +75,37 @@ class StripeEventListener
             $payment->client()->associate($client);
 
             $payment->save();
+
+
+            $data=[
+                "invoiceDate"=> Carbon::now()->format('Y-m-d H:i:s'),
+                "total"=> $total,
+                "cart"=>$cart
+            ];
+        
+            $pdf = Pdf::loadView('receipts.pdf', compact('data'));
+            $attachment = $pdf->output();
+        
+            $mailData = [
+                'attachment' => $attachment,
+            ];
+        
+            try {
+                Mail::send('email.emailSendInvoice', ['name' => $client->last_name], function ($message) use ($client,$mailData) {
+                    $message->from($client->email, $client->last_name);
+                    $message->sender('contact@elitechit.com', env('MAIL_FROM_NAME'));
+                    $message->to($client->email);
+                    $message->replyTo('contact@elitechit.com', env('MAIL_FROM_NAME'));
+                    $message->subject('Order Payment Confirmation');
+                    $message->priority(1);
+                    $message->attachData($mailData['attachment'], 'Receipt.pdf', ['mime' => 'application/pdf']);
+                });
+            } catch (\Swift_TransportException $e) {
+                if ($e->getMessage()) {
+                    return back()->with('error', 'Something went wrong. Please try again later.');
+                }
+            }
+         
         }
     }
 }
