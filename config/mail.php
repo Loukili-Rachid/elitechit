@@ -1,10 +1,10 @@
 <?php
 
-$mail_host          = 'sandbox.smtp.mailtrap.io';
-$mail_port          =  2525;
-$mail_encryption    =  'tls';
-$mail_username      = '32418f924eebf9';
-$mail_password      = '2850835cdeb9eb';
+$mail_host          = 'elitechit.com';
+$mail_port          =  465;
+$mail_encryption    =  'SSL';
+$mail_username      = 'contact@elitechit.com';
+$mail_password      = 'Zk&%qsJhB~D5';
 $mail_mailler       = 'smtp';
 
 return [

@@ -6,17 +6,63 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use Artesaos\SEOTools\Facades\SEOMeta;
+use Artesaos\SEOTools\Facades\OpenGraph;
+use Artesaos\SEOTools\Facades\TwitterCard;
+use Artesaos\SEOTools\Facades\JsonLd;
+
 class ProductsController extends Controller
 {
     public function index()
     {  
+        // Meta tags Generator
+        SEOMeta::setTitle(setting('site.title'));
+        SEOMeta::setDescription(setting('site.description'));
+        SEOMeta::addKeyword(['Computer Repair Services', 'elitch', 'Mobile','Laptop']);
+        // Opengraph tags Generator
+        OpenGraph::setUrl(env('APP_URL'));
+        OpenGraph::setDescription(setting('site.description'));
+        OpenGraph::setTitle(setting('site.title'));
+        OpenGraph::addProperty('type', 'section');
+        // Twitter for Twitter Cards tags Generator
+        TwitterCard::setTitle(setting('site.title'));
+        TwitterCard::setSite('@elitch');
+        // json-Ld tags Generator
+        JsonLd::setTitle(setting('site.title'));
+        JsonLd::setDescription(setting('site.description'));
+
         $products = Product::whereHas('status', function ($query) {
             $query->where('name', 'active');
         })->paginate(10);
         
         return view('products.index', compact('products'));
     }
- 
+    
+    public function show($id){
+        $products = Product::whereHas('status', function ($query) {
+            $query->where('name', 'active');
+        })->get();
+        $product = $products->where('id', $id)->firstOrFail();
+
+        // Meta tags Generator
+        SEOMeta::setTitle($product->meta_title ?? '');
+        SEOMeta::setDescription($product->meta_description ?? '');
+        SEOMeta::addKeyword(['Computer Repair Services', 'elitch', 'Mobile','Laptop']);
+        // Opengraph tags Generator
+        OpenGraph::setUrl(env('APP_URL'));
+        OpenGraph::setDescription($product->meta_description ?? '');
+        OpenGraph::setTitle($product->meta_title ?? '');
+        OpenGraph::addProperty('type', 'section');
+        // Twitter for Twitter Cards tags Generator
+        TwitterCard::setTitle($product->meta_title ?? '');
+        TwitterCard::setSite('@elitch');
+        // json-Ld tags Generator
+        JsonLd::setTitle($product->meta_title ?? '');
+        JsonLd::setDescription($product->meta_description ?? '');
+
+        return view('products.show', compact('product'));
+    }
+
     public function cart()
     {
         

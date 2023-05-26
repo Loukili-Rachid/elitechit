@@ -43,13 +43,19 @@
                 <!-- Single Blog Sec -->
                 <div class="single-blog-post">
                     <div class="post-image">
+                      <a href="{{route('product',$product->id)}}">
                         @if($product->image)<img src="{{asset('storage/'.$product->image)}}" alt="" title=""> @endif
+                      </a>
                     </div>
                     <div class="post-content">
                         @php
                         Carbon\Carbon::setLocale('en')
                         @endphp
-                        <h3> {{$product->title}} </h3>
+                        <h3>
+                          <a href="{{route('product',$product->id)}}">
+                            {{$product->title}} 
+                          </a>
+                        </h3>
                         <p> {!! \Illuminate\Support\Str::limit($product->description ?? '',100,' ...') !!}</p>
                         <h3 class="d-flex justify-content-center"> ${{ number_format( $product->price, 2) }} </h3>
                         <div class="d-flex justify-content-center align-items-center">
