@@ -47,7 +47,8 @@ class ProductsController extends Controller
         // Meta tags Generator
         SEOMeta::setTitle($product->meta_title ?? '');
         SEOMeta::setDescription($product->meta_description ?? '');
-        SEOMeta::addKeyword(['Computer Repair Services', 'elitch', 'Mobile','Laptop']);
+        $array = explode(',', $product->meta_keywords);
+        SEOMeta::addKeyword($array);
         // Opengraph tags Generator
         OpenGraph::setUrl(env('APP_URL'));
         OpenGraph::setDescription($product->meta_description ?? '');

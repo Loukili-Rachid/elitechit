@@ -137,8 +137,17 @@ a[x-apple-data-detectors] {
                             <tr style="border-collapse:collapse">
                             <td style="padding:5px 10px 5px 0;Margin:0" width="80%" align="left"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:'open sans', 'helvetica neue', helvetica, arial, sans-serif;line-height:24px;color:#333333;font-size:16px"> {{$item['title']}} </p></td>
                             <td style="padding:5px 0;Margin:0" width="20%" align="left"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:'open sans', 'helvetica neue', helvetica, arial, sans-serif;line-height:24px;color:#333333;font-size:16px">{{$item['quantity']}}</p></td>
-                            <td style="padding:5px 0;Margin:0" width="20%" align="left"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:'open sans', 'helvetica neue', helvetica, arial, sans-serif;line-height:24px;color:#333333;font-size:16px">${{$item['price']}}</p></td>
-                            </tr>
+                            <td style="padding:5px 0;Margin:0" width="20%" align="left">
+                              <p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:'open sans', 'helvetica neue', helvetica, arial, sans-serif;line-height:24px;color:#333333;font-size:16px">
+                              @php
+                                $itemTotal = $item['quantity'] * $item['price'];
+                                $discountAmount = ($itemTotal * $item['discount']) / 100;
+                                $itemTotal -= $discountAmount;
+                              @endphp
+                                ${{$itemTotal}}
+                               </p>
+                            </td>
+                            </td>
                         @endforeach
                          
                        </table></td>
