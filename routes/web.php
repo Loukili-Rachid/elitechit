@@ -86,6 +86,12 @@ Route::prefix('customer')->group(function () {
         Route::post('/register', [RegisterController::class, 'register'])->name('register');
     });
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
+
+
+    Route::get('/password/forgot', [LoginController::class, 'showForgotForm'])->name('showForgotForm');
+    Route::post('/password/forgot', [LoginController::class, 'sendResetLink'])->name('sendResetLink');
+    Route::get('/password/reset/{token}', [LoginController::class, 'showResetForm'])->name('showResetForm');
+    Route::post('/password/reset', [LoginController::class, 'resePassword'])->name('resePassword');
 });
 
 /* New Added Route */

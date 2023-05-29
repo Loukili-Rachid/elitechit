@@ -9,7 +9,7 @@
       <div class="row">
         <div class="col-lg-9 col-md-9">
           <div class="page-title">
-            <h1>Login</h1>
+            <h1>Reset Password</h1>
           </div>
         </div>
         <div class="col-lg-3 col-md-3 d-flex justify-content-start justify-content-md-end align-items-center">
@@ -17,7 +17,7 @@
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb ">
                 <li class="breadcrumb-item"> <a href="/">Home</a> </li>
-                <li class="breadcrumb-item active" aria-current="page">Login</li>
+                <li class="breadcrumb-item active" aria-current="page">Reset Password</li>
               </ol>
             </nav>
           </div>
@@ -34,14 +34,14 @@
             <div class="contact-wrap">
                 <div class="contact-form" >
                     <div class="contact-title">
-                        <h2>Login Form</h2>
+                        <h2>Reset Password</h2>
                     </div>
                     @if(Session::has('success'))
                     <div class="alert alert-success">
                         {{Session::get('success')}}
                     </div>
                     @endif
-                    @if ($errors->any())
+                    {{-- @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
                         @foreach ($errors->all() as $error)
@@ -49,32 +49,40 @@
                         @endforeach
                         </ul>
                     </div>
+                    @endif --}}
+                    @if(session('error'))
+                        <div class="alert alert-danger" role="alert">
+                        {{Session::get('error')}}
+                        </div>
                     @endif
-                    <form  method="POST" action="{{route('login')}}">
+                    <form  method="POST" action="{{route('resePassword')}}">
                         @csrf
-                            <div class="col">
-                                <div class="form-group">
-                                <label>Email Address</label>
-                                <input  value="{{ old('email') }}"  type="email" name="email" id="email" class="form-control @error('email') is-invalid @enderror"  data-error="Please enter your email">
-                                <div class="help-block with-errors"></div>
-                                </div>
+                            <div class="row">
+                                  <input  value="{{ $token ?? '' }}"  type="hidden" name="token">
                             </div>
-                            <div class="col">
+                            <div class="row">
+                              <div class="col-12">
                                 <div class="form-group">
                                 <label>Password</label>
                                 <input  value="{{ old('password') }}"  type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror"  data-error="Please enter your password">
-                                <div class="help-block with-errors"></div>
+                                <div class="help-block with-errors text-danger">@if ($errors->has('password')) {{ $errors->first('password') }}@endif</div>
                                 </div>
-                            </div>
-                            <div class="col d-flex justify-content-between">
-                              <div class="d-flex">
-                                <span class="pr-1">Create an account ?</span> 
-                                <a style="text-decoration: underline;" class="breadcrumb-item active text-primary" href="{{ route('showRegistrationForm') }}">register now</a>
                               </div>
-                                <button type="submit" class="btn"> login </button>
+                              <div class="col-12">
+                                <div class="form-group">
+                                <label>Confirm password</label>
+                                <input  value="{{ old('password_confirmation') }}"  type="password" name="password_confirmation" id="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror"  data-error="Please Re-enter your password">
+                                <div class="help-block with-errors text-danger">@if ($errors->has('password_confirmation')) {{ $errors->first('password_confirmation') }}@endif</div>
+                                </div>
+                              </div>
                             </div>
-                            <div class="col">
-                              <a style="text-decoration: underline;" class="breadcrumb-item active text-primary" href="{{ route('showForgotForm') }}">Forgot password</a>
+                            
+                            <div class="col d-flex justify-content-between">
+                                <div class="d-flex">
+                                    <span class="pr-1">Already have an account ?</span> 
+                                    <a style="text-decoration: underline;" class="breadcrumb-item active text-primary" href="{{ route('showLoginForm') }}">Login</a>
+                                </div>
+                                <button type="submit" class="btn"> Reset Password </button>
                             </div>
                     </form>
                 </div>

@@ -9,7 +9,7 @@
       <div class="row">
         <div class="col-lg-9 col-md-9">
           <div class="page-title">
-            <h1>Login</h1>
+            <h1>Forgot password</h1>
           </div>
         </div>
         <div class="col-lg-3 col-md-3 d-flex justify-content-start justify-content-md-end align-items-center">
@@ -17,7 +17,7 @@
             <nav aria-label="breadcrumb">
               <ol class="breadcrumb ">
                 <li class="breadcrumb-item"> <a href="/">Home</a> </li>
-                <li class="breadcrumb-item active" aria-current="page">Login</li>
+                <li class="breadcrumb-item active" aria-current="page">Forgot password</li>
               </ol>
             </nav>
           </div>
@@ -34,7 +34,7 @@
             <div class="contact-wrap">
                 <div class="contact-form" >
                     <div class="contact-title">
-                        <h2>Login Form</h2>
+                        <h2>Forgot password</h2>
                     </div>
                     @if(Session::has('success'))
                     <div class="alert alert-success">
@@ -50,8 +50,18 @@
                         </ul>
                     </div>
                     @endif
-                    <form  method="POST" action="{{route('login')}}">
+                    @if(session('error'))
+                        <div class="alert alert-danger" role="alert">
+                          {{Session::get('error')}}
+                        </div>
+                    @endif
+                    <form  method="POST" action="{{route('sendResetLink')}}">
                         @csrf
+                            <div class="col">
+                                <p>
+                                    Enter your email address and we will send you a link to reset your password
+                                </p>
+                            </div>
                             <div class="col">
                                 <div class="form-group">
                                 <label>Email Address</label>
@@ -59,22 +69,12 @@
                                 <div class="help-block with-errors"></div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="form-group">
-                                <label>Password</label>
-                                <input  value="{{ old('password') }}"  type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror"  data-error="Please enter your password">
-                                <div class="help-block with-errors"></div>
-                                </div>
-                            </div>
                             <div class="col d-flex justify-content-between">
-                              <div class="d-flex">
-                                <span class="pr-1">Create an account ?</span> 
-                                <a style="text-decoration: underline;" class="breadcrumb-item active text-primary" href="{{ route('showRegistrationForm') }}">register now</a>
-                              </div>
-                                <button type="submit" class="btn"> login </button>
-                            </div>
-                            <div class="col">
-                              <a style="text-decoration: underline;" class="breadcrumb-item active text-primary" href="{{ route('showForgotForm') }}">Forgot password</a>
+                                <div class="d-flex">
+                                    <span class="pr-1">Already have an account ?</span> 
+                                    <a style="text-decoration: underline;" class="breadcrumb-item active text-primary" href="{{ route('showLoginForm') }}">Login</a>
+                                </div>
+                                <button type="submit" class="btn"> Send Reset Password Link </button>
                             </div>
                     </form>
                 </div>
