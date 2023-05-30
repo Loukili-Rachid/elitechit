@@ -53,7 +53,7 @@ class StripeEventListener
             $order->profit = $total-$cost;
             $order->client_id = (int)$event->payload['data']['object']['metadata']['client_id'];
             $order->status_id = Status::where('model', class_basename(Order::class))
-            ->where('name', 'active')
+            ->where('name', 'paid')
             ->first()->id ;
             
             $order->save();
