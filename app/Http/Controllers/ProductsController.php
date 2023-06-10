@@ -43,7 +43,7 @@ class ProductsController extends Controller
             $query->where('name', 'active');
         })->get();
         $product = $products->where('id', $id)->firstOrFail();
-
+        $rating= $product->rates()->avg('rating') ?? 0;
         // Meta tags Generator
         SEOMeta::setTitle($product->meta_title ?? '');
         SEOMeta::setDescription($product->meta_description ?? '');
@@ -61,7 +61,7 @@ class ProductsController extends Controller
         JsonLd::setTitle($product->meta_title ?? '');
         JsonLd::setDescription($product->meta_description ?? '');
 
-        return view('products.show', compact('product'));
+        return view('products.show', compact('product','rating'));
     }
 
     public function cart()

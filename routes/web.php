@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use TCG\Voyager\Facades\Voyager;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlogController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ContactController;
@@ -87,6 +88,13 @@ Route::prefix('customer')->group(function () {
     });
     Route::get('/logout', [LoginController::class, 'logout'])->name('logout');
 
+    Route::middleware(['client.auth','is_verify_email'])->group(function () {
+        Route::get('/orders', [ClientController::class, 'showOrder'])->name('showOrder');
+        Route::put('/orders/{order}', [ClientController::class, 'orderUpdate'])->name('orders.update');
+        Route::get('/orders/{order}/details', [ClientController::class, 'orderDetails'])->name('order.details');
+
+
+    });
 
     Route::get('/password/forgot', [LoginController::class, 'showForgotForm'])->name('showForgotForm');
     Route::post('/password/forgot', [LoginController::class, 'sendResetLink'])->name('sendResetLink');

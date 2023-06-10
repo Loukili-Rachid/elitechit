@@ -27,7 +27,9 @@ class RegisterController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.Client::class],
-            'phone' => ['regex:/^\d{10}$/'],
+            'phone' => ['regex:/^[0-9]{12}$/'],
+            'shipping_address' => ['required'],
+            'company_name' => ['string'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'password_confirmation' => 'required|min:8',
         ]);
@@ -41,6 +43,8 @@ class RegisterController extends Controller
             'last_name' => $request->last_name,
             'email' => $request->email,
             'phone' => $request->phone,
+            'shipping_address' =>  $request->shipping_address,
+            'company_name' =>  $request->company_name,
             'password' => Hash::make($request->password),
             'status_id' => $clientStatus->id,
         ]);
@@ -54,7 +58,7 @@ class RegisterController extends Controller
         ]);
         try {
             Mail::send('email.emailVerificationEmail', ['token' => $token], function ($message) use ($request) {
-                $message->from($request->email, $request->first_name);
+                $message->from('contact@elitechit.com', env('MAIL_FROM_NAME'));
                 $message->sender('contact@elitechit.com', env('MAIL_FROM_NAME'));
                 $message->to($request->email);
                 $message->replyTo('contact@elitechit.com', env('MAIL_FROM_NAME'));

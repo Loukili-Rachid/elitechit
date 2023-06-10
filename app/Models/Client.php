@@ -19,7 +19,9 @@ class Client extends Model implements Authenticatable
         'phone',
         'password',
         'status_id',
-        'is_email_verified'
+        'is_email_verified',
+        'shipping_address',
+        'company_name',
     ];
 
 

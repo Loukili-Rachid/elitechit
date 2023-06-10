@@ -32,9 +32,9 @@
   <div class="container">
     <div class="row">
         <div class="col">
-          <div class="blog-details-content">
-            <div class="blog-details-img"> @if($product->image)<img class="img-fluid" src="{{asset('storage/'.$product->image)}}" alt=""> @endif </div>
-            <div class="blog-top-content">
+          <div class="blog-details-content row">
+            <div class="blog-details-img col-lg-6"> @if($product->image)<img class="img-fluid" src="{{asset('storage/'.$product->image)}}" alt=""> @endif </div>
+            <div class="blog-top-content col-lg-6">
               <div class="news-content">
                 @php
                   Carbon\Carbon::setLocale('en')   
@@ -46,13 +46,36 @@
                     <h3>{{$product->title}}</h3>
                     <form method="POST" action="{{ route('addToCart', ['id' => $product->id]) }}">
                         @csrf
-                        <button type="submit" class="btn">Add to cart</button>
+                        <button type="submit" class="btn">
+                          ${{ number_format( $product->price, 2) }} 
+                          <i class="fa fa-shopping-cart mr-1" aria-hidden="true"></i>
+                        </button>
                     </form>
                 </div>
-                <p>{!!$product->body!!}</p>
+                <div class="col-lg-6">
+                  <div class="d-flex justify-content-end align-items-center" style="flex-direction: row-reverse">
+                    <span>
+                      <b>
+                        ({{ number_format( $rating, 1)}})
+                      </b>
+                    </span>
+                    @for ($i = 5; $i >= 1; $i--)
+                      <span style="font-size:20px" wire:click="setRating({{ $i }})" class="{{ $i <= $rating ? 'rated' : '' }}">&#9733;</span>
+                    @endfor
+                  </div>
+                </div>
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-12 mt-2">
+          <h5><b>{{$product->title}}</b></h5>
+          <p class="px-2">{!!$product->description!!}</p>
+        </div>
+        <div class="col-12 mt-2">
+          <p>{!!$product->body!!}</p>
         </div>
       </div>
                    

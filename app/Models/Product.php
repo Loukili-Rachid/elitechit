@@ -12,6 +12,7 @@ class Product extends Model
         'price',
         'label',
         'description',
+        'body',
         'brand',
         'cost',
         'image',
@@ -37,5 +38,10 @@ class Product extends Model
     public function status()
     {
         return $this->belongsTo(Status::class)->where('model', class_basename(self::class));
+    }
+
+    public function rates()
+    {
+        return $this->hasMany(Rate::class);
     }
 }

@@ -75,12 +75,17 @@ class StripeEventListener
             $payment->client()->associate($client);
 
             $payment->save();
-
-
+            if($client->company_name == null){
+                $owner =  $client->last_name . ' ' . $client->first_name;
+            }else{
+                $owner =  $client->company_name;
+            }
+            
             $data=[
                 "invoiceDate"=> Carbon::now()->format('Y-m-d H:i:s'),
                 "total"=> $total,
-                "cart"=>$cart
+                "cart"=>$cart,
+                "owner"=>$owner
             ];
             
             dispatch(new SendInvoiceToClient($client,$data));

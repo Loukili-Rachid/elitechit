@@ -87,6 +87,22 @@
                             <div class="row">
                               <div class="col-lg-6">
                                 <div class="form-group">
+                                <label>Shipping address</label>
+                                <input  value="{{ old('shipping_address') }}"  type="text" name="shipping_address" id="shipping_address" class="form-control @error('shipping_address') is-invalid @enderror"  data-error="Please enter your shipping_address">
+                                <div class="help-block with-errors text-danger">@if ($errors->has('shipping_address')) {{ $errors->first('shipping_address') }}@endif</div>
+                                </div>
+                              </div>
+                              <div class="col-lg-6">
+                                <div class="form-group">
+                                <label>Company name</label>
+                                <input  value="{{ old('company_name') }}"  type="text" name="company_name" id="company_name" class="form-control @error('company_name') is-invalid @enderror"  data-error="Please Re-enter your password">
+                                <div class="help-block with-errors text-danger">@if ($errors->has('company_name')) {{ $errors->first('company_name') }}@endif</div>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="row">
+                              <div class="col-lg-6">
+                                <div class="form-group">
                                 <label>Password</label>
                                 <input  value="{{ old('password') }}"  type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror"  data-error="Please enter your password">
                                 <div class="help-block with-errors text-danger">@if ($errors->has('password')) {{ $errors->first('password') }}@endif</div>

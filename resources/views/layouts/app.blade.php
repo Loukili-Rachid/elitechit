@@ -54,6 +54,27 @@
         #scrollUp {
             bottom: 165px;
         }
+
+        .rating {
+        unicode-bidi: bidi-override;
+        direction: rtl;
+        text-align: center;
+        }
+        .rating > span {
+        display: inline-block;
+        position: relative;
+        width: 1.1em;
+        }
+        .rating > span:hover:before,
+        .rating > span:hover ~ span:before {
+        content: "\2605";
+        position: absolute;
+        color: gold;
+        cursor: pointer;
+        }
+        .rated {
+            color: gold; 
+        }
     </style>
      {!! SEO::generate() !!}
      {!!setting('site.js_script')!!}
