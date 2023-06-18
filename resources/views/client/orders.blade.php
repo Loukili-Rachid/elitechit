@@ -37,6 +37,24 @@
       {{Session::get('error')}}
     </div>
 @endif
+<div id="confirmationModal" class="modal" style="background-color: rgba(31, 30, 30, 0.596);">
+  <div class="modal-dialog" style="margin-top: 10%">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">ConfirmButton</h5>
+        <button type="button" class="close" >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+        <div class="modal-body">
+          <p>Are you sure you want to change the status?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn " id="confirmButton">Confirm</button>
+        </div>
+    </div>
+  </div>
+</div>
 <div class="mt-5 container card">
     <div style="overflow: auto; white-space: nowrap;">
         <table class="table">
@@ -73,11 +91,11 @@
                         </td>
                         <td style="vertical-align: middle;"> ${{ number_format( $item['total'], 2) }}</td>
                         <td>
-                            @if ($item->status->name !== 'received')
-                                <form action="{{ route('orders.update', $item) }}" method="POST">
+                            @if ($item->status->name === 'shipped')
+                                <form class="status-form" action="{{ route('orders.update', $item) }}" method="POST">
                                     @csrf
                                     @method('PUT')
-                                    <button type="submit" style="padding: 5px" class="btn ">Received
+                                    <button type="submit" style="padding: 5px" class="btn change-status-btn">Received
                                         <i class="pl-2 fa-solid fa-check"></i>
                                     </button>
                                 </form>
@@ -104,6 +122,37 @@
             {{ $orders->links() }}</div>
     </div>
 </div>
+@section('scripts')
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+      var modal = document.getElementById('confirmationModal');
+      var confirmButton = document.getElementById('confirmButton');
+      var statusForms = document.getElementsByClassName('status-form');
+
+      // Open modal when the button is clicked
+      Array.from(statusForms).forEach(function(form) {
+          form.addEventListener('submit', function(event) {
+              event.preventDefault();
+              modal.style.display = 'block';
+              var currentForm = this;
+
+              // Handle confirm button click
+              confirmButton.addEventListener('click', function() {
+                  modal.style.display = 'none';
+                  currentForm.submit();
+              });
+          });
+      });
+
+      // Close modal when the user clicks the close button
+      var closeButton = document.getElementsByClassName('close')[0];
+      closeButton.addEventListener('click', function() {
+          modal.style.display = 'none';
+      });
+  });
+</script>
+
+@endsection
 
 @if(setting('site.Call_To_Action_Section'))
   @include('components.cta')

@@ -35,7 +35,7 @@ class StripeEventListener
     {
         if ($event->payload['type'] === 'payment_intent.succeeded') {
             // Storage::disk('public')->put("testOne.txt", "hy :".json_encode($event->payload['data']['object']['metadata']));
-
+            $billing_address = json_decode($event->payload['data']['object']['metadata']['billing_address'], true);
             $cart = json_decode($event->payload['data']['object']['metadata']['cart'], true);
             $total = 0;
             $cost = 0;
@@ -51,6 +51,18 @@ class StripeEventListener
             $order = new Order();
             $order->total = $total;
             $order->profit = $total-$cost;
+
+            $order->first_name = $billing_address['first_name'];
+            $order->last_name = $billing_address['last_name'];
+            $order->phone = $billing_address['phone'];
+            $order->address_one = $billing_address['address_one'];
+            $order->address_two = $billing_address['address_two'];
+            $order->country = $billing_address['country'];
+            $order->zip_code = $billing_address['zip_code'];
+            $order->state = $billing_address['state'];
+            $order->city = $billing_address['city'];
+            
+
             $order->client_id = (int)$event->payload['data']['object']['metadata']['client_id'];
             $order->status_id = Status::where('model', class_basename(Order::class))
             ->where('name', 'paid')

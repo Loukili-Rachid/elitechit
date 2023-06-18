@@ -32,6 +32,7 @@ class OrderDetails extends Component
         $this->product_id = (int)$product_id;
         $this->display= true;
         $this->rating = $this->getRatingFromDatabase();
+        $this->comment = $this->getCommentFromDatabase();
         $this->product = Product::findOrFail($this->product_id);
     }
 
@@ -43,6 +44,15 @@ class OrderDetails extends Component
         $rate = $product->rates()->where('client_id', $client_id)->first();
 
         return $rate ? $rate->rating : 0; 
+    }
+    public function getCommentFromDatabase()
+    {
+        $product = Product::findOrFail($this->product_id);
+        $client_id = Auth::guard('client')->id(); 
+
+        $rate = $product->rates()->where('client_id', $client_id)->first();
+
+        return $rate ? $rate->comment : ""; 
     }
 
     public function storeRating($rating)
@@ -60,7 +70,7 @@ class OrderDetails extends Component
         ]);
     
         // Reset the form fields
-        $this->comment = null;
+        // $this->comment = null;
 
 
 

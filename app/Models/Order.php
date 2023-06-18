@@ -13,6 +13,15 @@ class Order extends Model
         'profit',
         'client_id',
         'status_id',
+        'first_name',
+        'last_name',
+        'phone',
+        'address_one',
+        'address_two',
+        'country',
+        'state',
+        'zip_code',
+        'city',
     ];
 
     public function client() 

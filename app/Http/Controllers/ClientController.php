@@ -34,7 +34,7 @@ class ClientController extends Controller
             return redirect()->back()->with('error', 'Order not found.');
         }
         // Check if the current status is not already "received"
-        if ($order->status->name !== 'received') {
+        if ($order->status->name === 'shipped') {
             // Update the status to "received"
             $order->status()->associate(
                 Status::where('model', class_basename(Order::class))

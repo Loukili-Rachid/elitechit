@@ -27,11 +27,6 @@ class RegisterController extends Controller
             'first_name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:'.Client::class],
-            'phone' => ['regex:/^[0-9]{12}$/'],
-            'shipping_address' => ['required'],
-            'company_name' => ['string'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'password_confirmation' => 'required|min:8',
         ]);
 
         $clientStatus = Status::where('model', class_basename(Client::class))
@@ -43,8 +38,6 @@ class RegisterController extends Controller
             'last_name' => $request->last_name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'shipping_address' =>  $request->shipping_address,
-            'company_name' =>  $request->company_name,
             'password' => Hash::make($request->password),
             'status_id' => $clientStatus->id,
         ]);

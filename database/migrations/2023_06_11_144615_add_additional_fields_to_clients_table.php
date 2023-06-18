@@ -14,8 +14,11 @@ return new class extends Migration
     public function up()
     {
         Schema::table('clients', function (Blueprint $table) {
-            $table->string('address_one')->nullable();
-            $table->string('company_name')->nullable();
+            $table->string('address_two')->nullable();
+            $table->string('country')->nullable();
+            $table->string('state')->nullable();
+            $table->string('zip_code')->nullable();
+            $table->string('city')->nullable();
         });
     }
 
@@ -27,8 +30,11 @@ return new class extends Migration
     public function down()
     {
         Schema::table('clients', function (Blueprint $table) {
-            $table->dropColumn('address_one');
-            $table->dropColumn('company_name');
+            $table->dropColumn('address_two');
+            $table->dropColumn('country');
+            $table->dropColumn('state');
+            $table->dropColumn('zip_code');
+            $table->dropColumn('city');
         });
     }
 };

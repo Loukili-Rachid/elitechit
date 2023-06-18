@@ -41,7 +41,7 @@ class SendInvoiceToClient implements ShouldQueue
         $attachment = $pdf->output();
 
         try {
-            Mail::send('email.emailSendInvoice', ['name' => $client->last_name], function ($message) use ($client,$attachment) {
+            Mail::send('email.emailSendInvoice', ['name' => $client->last_name,'total' => $data["total"],'paymentDate'=>$data["invoiceDate"]], function ($message) use ($client,$attachment) {
                 $message->from('contact@elitechit.com', env('MAIL_FROM_NAME'));
                 $message->sender('contact@elitechit.com', env('MAIL_FROM_NAME'));
                 $message->to($client->email);

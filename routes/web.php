@@ -55,8 +55,10 @@ Route::get('/products', [ProductsController::class, 'index'])->name('products');
 Route::get('/product-details/{id}', [ProductsController::class, 'show'])->name('product');
 Route::get('cart', [ProductsController::class, 'cart'])->name('cart');
 Route::post('products/{id}', [ProductsController::class, 'addToCart'])->name('addToCart');
-Route::post('cart', [ProductsController::class, 'purchase'])->name('purchase')->middleware(['client.auth','is_verify_email']);
 Route::get('cart/{productId}', [ProductsController::class, 'removeProduct'])->name('remove_from_cart');
+
+Route::post('checkout', [ProductsController::class, 'purchase'])->name('purchase')->middleware(['client.auth','is_verify_email']);
+Route::get('checkout', [ProductsController::class, 'showCheckout'])->name('showCheckout')->middleware(['client.auth','is_verify_email']);
 
 Route::get('/services',[ServiceController::class, 'index']);
 Route::get('/service-details/{slug}',[ServiceController::class, 'service'])->name('service');

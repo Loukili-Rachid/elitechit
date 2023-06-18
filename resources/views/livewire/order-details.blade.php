@@ -22,7 +22,7 @@
                    
                         <div class="form-group">
                           <label>Comment</label>
-                          <textarea wire:model="comment" value="{{ old('comment') }}"  name="comment" class="form-control @error('comment') is-invalid @enderror" id="comment" cols="30" rows="5"  data-error="Write your comment"></textarea>
+                          <textarea wire:model="comment" name="comment" class="form-control @error('comment') is-invalid @enderror" id="comment" cols="30" rows="5"  data-error="Write your comment">{{$comment}}</textarea>
                           <div class="help-block with-errors"></div>
                         </div>
                     

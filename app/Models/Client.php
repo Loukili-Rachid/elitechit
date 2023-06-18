@@ -20,8 +20,13 @@ class Client extends Model implements Authenticatable
         'password',
         'status_id',
         'is_email_verified',
-        'shipping_address',
         'company_name',
+        'address_one',
+        'address_two',
+        'country',
+        'state',
+        'zip_code',
+        'city',
     ];
 
 
