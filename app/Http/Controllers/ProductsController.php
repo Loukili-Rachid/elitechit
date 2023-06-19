@@ -69,9 +69,9 @@ class ProductsController extends Controller
         
         $checkout= count((array) session('cart'))==0 ? false:true;
 
-        if (Auth::guard('client')->check()) {
+        // if (Auth::guard('client')->check()) {
             return view('products.cart', compact('checkout'));
-        } 
+        // } 
     }
 
     public function addToCart(Request $request, $id)

@@ -32,7 +32,7 @@
 <!-- Inner Content area Start -->
 <section class="blog-sec inner-content-wrapper">
   @if(Session::has('success'))
-  <div class="alert alert-success container">
+  <div class="alert alert-success container" id="successAlert">
     {{Session::get('success')}}
   </div>
   @endif
@@ -90,4 +90,12 @@
 @if(setting('site.Pricing_table_Section'))
   @include('components.pricing')
 @endif
+@endsection
+@section('scripts')
+  <script>
+    // Close the success alert after 5 seconds
+    setTimeout(function() {
+      $('#successAlert').fadeOut('slow');
+    }, 5000);
+  </script>
 @endsection

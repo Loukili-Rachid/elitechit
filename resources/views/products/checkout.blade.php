@@ -52,14 +52,14 @@
                               <div class="col-lg-6">
                                   <div class="form-group">
                                     <label>First Name <b class="text-danger">*</b></label>
-                                    <input  value="{{$client->first_name  }}"  type="text" name="first_name" id="first_name" class="form-control @error('first_name') is-invalid @enderror"  data-error="Please enter your first name">
+                                    <input  value="{{$client->first_name  }}"  type="text" name="first_name" id="first_name" class="form-control @error('first_name') is-invalid @enderror"  data-error="Please enter your first name" required>
                                     <div class="help-block with-errors text-danger">@if ($errors->has('first_name')) {{ $errors->first('first_name') }}@endif</div>
                                   </div>
                               </div>
                               <div class="col-lg-6">
                                 <div class="form-group">
                                   <label>Last Name <b class="text-danger">*</b></label>
-                                  <input  value="{{ $client->last_name}}"  type="text" name="last_name" id="last_name" class="form-control @error('last_name') is-invalid @enderror"  data-error="Please enter your last name">
+                                  <input  value="{{ $client->last_name}}"  type="text" name="last_name" id="last_name" class="form-control @error('last_name') is-invalid @enderror"  data-error="Please enter your last name" required>
                                   <div class="help-block with-errors text-danger">@if ($errors->has('last_name')) {{ $errors->first('last_name') }}@endif</div>
                                 </div>
                               </div>
@@ -68,7 +68,7 @@
                               <div class="col-lg-6">
                                   <div class="form-group">
                                   <label>Address Line 1 <b class="text-danger">*</b></label>
-                                  <input  value="{{ old('address_one', ($editing ? $client->address_one : '')) }}"  type="text" name="address_one" id="address_one" class="form-control @error('address_one') is-invalid @enderror"  data-error="Please enter your address Line 1">
+                                  <input  value="{{ old('address_one', ($editing ? $client->address_one : '')) }}"  type="text" name="address_one" id="address_one" class="form-control @error('address_one') is-invalid @enderror"  data-error="Please enter your address Line 1" required>
                                   <div class="help-block with-errors text-danger">@if ($errors->has('address_one')) {{ $errors->first('address_one') }}@endif</div>
                                   </div>
                               </div>
@@ -84,7 +84,7 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                     <label>Country <b class="text-danger">*</b></label>
-                                    <select name="country" class="form-control">
+                                    <select name="country" class="form-control" required>
                                         <option value="United States">United States</option>
                                     </select>
                                       
@@ -94,7 +94,7 @@
                                 <div class="col-lg-6">
                                   <div class="form-group">
                                       <label>Zip Code <b class="text-danger">*</b></label>
-                                      <input  value="{{ old('zip_code', ($editing ? $client->zip_code : '')) }}"  type="text" name="zip_code" id="zip_code" class="form-control @error('zip_code') is-invalid @enderror"  data-error="Please enter your Zip Code">
+                                      <input  value="{{ old('zip_code', ($editing ? $client->zip_code : '')) }}"  type="text" name="zip_code" id="zip_code" class="form-control @error('zip_code') is-invalid @enderror"  data-error="Please enter your Zip Code" required>
                                       <div class="help-block with-errors text-danger">@if ($errors->has('zip_code')) {{ $errors->first('zip_code') }}@endif</div>
                                       </div>
                                   </div>
@@ -103,14 +103,14 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                     <label>City <b class="text-danger">*</b></label>
-                                    <input  value="{{ old('city', ($editing ? $client->city : '')) }}"  type="text" name="city" id="city" class="form-control @error('city') is-invalid @enderror"  data-error="Please enter your city">
+                                    <input  value="{{ old('city', ($editing ? $client->city : '')) }}"  type="text" name="city" id="city" class="form-control @error('city') is-invalid @enderror"  data-error="Please enter your city" required>
                                     <div class="help-block with-errors text-danger">@if ($errors->has('city')) {{ $errors->first('city') }}@endif</div>
                                     </div>
                                 </div>
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label>State <b class="text-danger">*</b></label>
-                                        <select name="state" class="form-control">
+                                        <select name="state" class="form-control" required>
                                             <option value="">Select a state</option>
                                             <?php
                                             $states = [
