@@ -39,7 +39,7 @@
             <table class="table">
                 <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col">Reference</th>
                     <th scope="col">Title</th>
                     <th scope="col">Quantity</th>
                     <th scope="col">Price</th>
@@ -49,7 +49,7 @@
                 <tbody>
                     @forelse ($order->products as $product)
                         <tr>
-                            <th style="vertical-align: middle;"  scope="row">{{ $loop->index+1 }}</th>
+                            <th style="vertical-align: middle;"  scope="row">{{ $product->ref }} </th>
                             
                             <td style="vertical-align: middle;">
                                 {{ $product->title }} 

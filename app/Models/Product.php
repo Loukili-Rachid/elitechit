@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class Product extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'ref',
         'price',
         'label',
         'description',
@@ -43,5 +45,14 @@ class Product extends Model
     public function rates()
     {
         return $this->hasMany(Rate::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($product) {
+            $product->ref = '#'.Str::random(10). date('YmdHi');
+        });
     }
 }
