@@ -66,9 +66,15 @@ Route::get('/service-details/{slug}',[ServiceController::class, 'service'])->nam
 Route::get('/contact', [ContactController::class, 'index']);
 Route::post('/contact', [ContactController::class, 'contact'])->name('contact');
 
-// Route::get('/terms-conditions',function(){
-//     return view('terms-conditions');
-// });
+Route::get('/test',function(){
+    return view('test');
+});
+Route::get('/test1',function(){
+    return view('test1');
+});
+Route::get('/test2',function(){
+    return view('test2');
+});
 Route::get('/privacy-policy',[HomeController::class, 'law'])->name('privacy-policy');
 
 Route::get('/our-team',function(){
