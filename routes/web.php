@@ -13,6 +13,7 @@ use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\UpgradeAppController;
 use App\Http\Controllers\MaintenanceController;
 use App\Http\Controllers\ProductsController;
+use App\Http\Controllers\TrackController;
 use App\Models\ClientVerify;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -66,15 +67,13 @@ Route::get('/service-details/{slug}',[ServiceController::class, 'service'])->nam
 Route::get('/contact', [ContactController::class, 'index']);
 Route::post('/contact', [ContactController::class, 'contact'])->name('contact');
 
-Route::get('/test',function(){
-    return view('test');
-});
-Route::get('/test1',function(){
-    return view('test1');
-});
-Route::get('/test2',function(){
-    return view('test2');
-});
+Route::get('/track-dhl/{trackingNumber?}', [TrackController::class, 'indexDhl'])->name('dhl');
+Route::post('/track-dhl/{trackingNumber?}', [TrackController::class, 'trackDhl'])->name('trackingDhl');
+
+Route::get('/track-fedex/{trackingNumber?}', [TrackController::class, 'indexFedex'])->name('fedex');
+Route::post('/track-fedex/{trackingNumber?}', [TrackController::class, 'trackFedex'])->name('trackingFedex');
+
+
 Route::get('/privacy-policy',[HomeController::class, 'law'])->name('privacy-policy');
 
 Route::get('/our-team',function(){

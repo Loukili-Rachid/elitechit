@@ -65,6 +65,7 @@
                 <th scope="col">Total</th>
                 <th scope="col"></th>
                 <th scope="col"></th>
+                <th scope="col"></th>
             </tr>
             </thead>
             <tbody>
@@ -95,10 +96,28 @@
                                 <form class="status-form" action="{{ route('orders.update', $item) }}" method="POST">
                                     @csrf
                                     @method('PUT')
-                                    <button type="submit" style="padding: 5px" class="btn change-status-btn">Received
-                                        <i class="pl-2 fa-solid fa-check"></i>
+                                    <button type="submit"  class="btn change-status-btn">Received 
+                                        <i class=" fa-solid fa-check"></i>
                                     </button>
                                 </form>
+                            @endif
+                        </td>
+                        <td>
+                            @if ($item->status->name === 'shipped')  
+                              @switch($item->delivery_service)
+                                  @case('dhl')
+                                    <a href="{{route('dhl',$item->tracking_number)}}"  class="btn change-status-btn">track
+                                      ({{$item->delivery_service ??''}})
+                                      <i class="fa-solid fa-truck"></i>
+                                    </a>
+                                    @break
+                                  @case('fedex')
+                                  <a href="{{route('fedex',$item->tracking_number)}}"  class="btn change-status-btn">track
+                                    ({{$item->delivery_service ??''}})
+                                    <i class="fa-solid fa-truck"></i>
+                                  </a>
+                                  @break
+                              @endswitch
                             @endif
                         </td>
                         <td style="vertical-align: middle;">

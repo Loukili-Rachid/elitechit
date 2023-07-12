@@ -28,7 +28,8 @@
     },
     "autoload": {
         "files": [
-            "app/Helpers/AppHelper.php"
+            "app/Helpers/AppHelper.php",
+            "app/Helpers/CustomHelper.php"
         ],
         "psr-4": {
             "App\\": "app/",
